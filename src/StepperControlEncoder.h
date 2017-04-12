@@ -16,38 +16,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-class StepperControlEncoder {
+class StepperControlEncoder
+{
 
 public:
+  StepperControlEncoder();
 
-	StepperControlEncoder();
+  void loadPinNumbers(int channelA, int channelB);
 
-	void loadPinNumbers(int channelA, int channelB);
+  void setPosition(long newPosition);
+  long currentPosition();
 
-	void setPosition(long newPosition);
-	long currentPosition();
-
-	void readEncoder();
-	void readChannels();
-	void shiftChannels();
-	void test();
+  void readEncoder();
+  void readChannels();
+  void shiftChannels();
+  void test();
 
 private:
+  // pin settings
+  int pinChannelA;
+  int pinChannelB;
 
-	// pin settings
-	int pinChannelA;
-	int pinChannelB;
+  // channels
+  bool prvValChannelA;
+  bool prvValChannelB;
+  bool curValChannelA;
+  bool curValChannelB;
 
-	// channels
-	bool prvValChannelA;
-	bool prvValChannelB;
-	bool curValChannelA;
-	bool curValChannelB;
-
-	// encoder
-	long position;
-
+  // encoder
+  long position;
 };
 
 #endif /* STEPPERCONTROLENCODER_H_ */
-

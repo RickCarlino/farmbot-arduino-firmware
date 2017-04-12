@@ -7,9 +7,9 @@
 enum CommandCodeEnum
 {
   CODE_UNDEFINED = -1,
-  G00 =   0,
-  G01 =   1,
-  G28 =  28,
+  G00 = 0,
+  G01 = 1,
+  G28 = 28,
   F01 = 101,
   F02 = 102,
   F03 = 103,
@@ -36,32 +36,35 @@ enum CommandCodeEnum
 
 //#define NULL 0
 
-class Command {
-	CommandCodeEnum codeEnum;
-public:
-//	Command(String);
-	Command(char * commandChar);
-	void print();
-	CommandCodeEnum getCodeEnum();
-	double getX();
-	double getY();
-	double getZ();
-	double getS();
-	long getP();
-	long getV();
-	long getA();
-	long getB();
-	long getC();
-	long getW();
-	long getT();
-	long getE();
-	long getM();
-	long getQ();
+class Command
+{
+  CommandCodeEnum codeEnum;
 
-	void printQAndNewLine();
+public:
+  //	Command(String);
+  Command(char *commandChar);
+  void print();
+  CommandCodeEnum getCodeEnum();
+  double getX();
+  double getY();
+  double getZ();
+  double getS();
+  long getP();
+  long getV();
+  long getA();
+  long getB();
+  long getC();
+  long getW();
+  long getT();
+  long getE();
+  long getM();
+  long getQ();
+
+  void printQAndNewLine();
+
 private:
-	CommandCodeEnum getGCodeEnum(char* code);
-	void getParameter(char* charPointer);
+  CommandCodeEnum getGCodeEnum(char *code);
+  void getParameter(char *charPointer);
 };
 
 #endif /* COMMAND_H_ */

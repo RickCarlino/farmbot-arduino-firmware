@@ -41,15 +41,18 @@
 #include "F82Handler.h"
 #include "F83Handler.h"
 
-class GCodeProcessor {
+class GCodeProcessor
+{
 public:
-	GCodeProcessor();
-	virtual ~GCodeProcessor();
-	int execute(Command* command);
+  GCodeProcessor();
+  virtual ~GCodeProcessor();
+  int execute(Command *command);
+
 protected:
-	GCodeHandler* getGCodeHandler(CommandCodeEnum);
+  GCodeHandler *getGCodeHandler(CommandCodeEnum);
+
 private:
-	void printCommandLog(Command*);
+  void printCommandLog(Command *);
 };
 
 #endif /* GCODEPROCESSOR_H_ */
