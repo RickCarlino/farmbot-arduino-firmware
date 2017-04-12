@@ -52,7 +52,7 @@ Software overview
 
 All files are in `/src`
 
-Farmbot_arduino_controller contains the setup() and main(). This is the main sequence:
+Farmbot_arduino_controller contains the setup() and loop(). This is the main sequence:
 
 ```
      +--------------------------+
@@ -95,7 +95,7 @@ X_MIN_PIN        |   3  | X axis end stop at home position
 X_MAX_PIN        |   2  | X axis end stop at far position
 X_ENCDR_A        |  16  | X axis encoder A channel
 X_ENCDR_B        |  17  | X axis encoder B channel
-X_ENCDR_A_Q      |  31  | X axis encoder A channel for quarature (not implemented) 
+X_ENCDR_A_Q      |  31  | X axis encoder A channel for quarature (not implemented)
 X_ENCDR_B_Q      |  33  | X axis encoder B channel for quarature (not implemented)
 Y_STEP_PIN       |  60  | Y axis step signal
 Y_DIR_PIN        |  61  | Y axis direction choice
@@ -104,8 +104,8 @@ Y_MIN_PIN        |  14  | Y axis end stop at home position
 Y_MAX_PIN        |  15  | Y axis end stop at far position
 Y_ENCDR_A        |  23  | Y axis encoder A channel
 Y_ENCDR_B        |  25  | Y axis encoder B channel
-Y_ENCDR_A_Q      |  35  | Y axis encoder A channel for quarature (not implemented) 
-Y_ENCDR_B_Q      |  37  | Y axis encoder B channel for quarature (not implemented) 
+Y_ENCDR_A_Q      |  35  | Y axis encoder A channel for quarature (not implemented)
+Y_ENCDR_B_Q      |  37  | Y axis encoder B channel for quarature (not implemented)
 Z_STEP_PIN       |  46  | Z axis step signal
 Z_DIR_PIN        |  48  | Z axis direction choice
 Z_ENABLE_PIN     |  62  | Z axis enable
@@ -113,8 +113,8 @@ Z_MIN_PIN        |  18  | Z axis end stop at home position
 Z_MAX_PIN        |  19  | Z axis end stop at far position
 Z_ENCDR_A        |  27  | Z axis encoder A channel
 Z_ENCDR_B        |  29  | Z axis encoder B channel
-Z_ENCDR_A_Q      |  39  | Z axis encoder A channel for quarature (not implemented) 
-Z_ENCDR_B_Q      |  41  | Z axis encoder B channel for quarature (not implemented) 
+Z_ENCDR_A_Q      |  39  | Z axis encoder A channel for quarature (not implemented)
+Z_ENCDR_B_Q      |  41  | Z axis encoder B channel for quarature (not implemented)
 LED_PIN          |  13  | on board LED
 FAN_PIN          |   9  | RAMPS board fan pin
 HEATER_0_PIN     |  10  | RAMPS board heating pin 0
@@ -150,7 +150,7 @@ F        |31    |P         |Read status
 F        |32    |P V       |Write status
 F        |41    |P V M     |Set a value V on an arduino pin in mode M (digital=0/analog=1)
 F        |42    |P M       |Read a value from an arduino pin P in mode M (digital=0/analog=1)
-F        |43    |P M       |Set the I/O mode M (input=0/output=1) of a pin P in arduino 
+F        |43    |P M       |Set the I/O mode M (input=0/output=1) of a pin P in arduino
 F        |44    |P V W T M |Set the value V on an arduino pin P, wait for time T in milliseconds, set value W on the arduino pin P in mode M (digital=0/analog=1)
 F        |51    |E P V     |Set a value on the tool mount with I2C (not implemented)
 F        |52    |E P       |Read value from the tool mount with I2C (not implemented)
@@ -158,26 +158,27 @@ F        |61    |P V       |Set the servo on the pin P (only pin 4 and 5) to the
 F        |81    |          |Report end stop
 F        |82    |          |Report current position
 F        |83    |          |Report software version
+F        |84    |X Y Z     |Write Axis Position
 E        |      |          |Emergency stop
 
 ### Codes received from the arduino
 
 Code type|Number|Parameters|Function
 ---------|------|----------|--------
-R        |      |          |Report messages
-R        |01    |          |Current command started
-R        |02    |          |Current command finished successfully
-R        |03    |          |Current command finished with error
-R        |04    |          |Current command running
-R        |05    |          |Report motor/axis state
-R        |06    |          |Report calibration state during execution
-R        |21    |P V       |Report parameter value
-R        |31    |P V       |Report status value
-R        |41    |P V       |Report pin value
+R        |      |                 |Report messages
+R        |01    |                 |Current command started
+R        |02    |                 |Current command finished successfully
+R        |03    |                 |Current command finished with error
+R        |04    |                 |Current command running
+R        |05    |                 |Report motor/axis state
+R        |06    |                 |Report calibration state during execution
+R        |21    |P V              |Report parameter value
+R        |31    |P V              |Report status value
+R        |41    |P V              |Report pin value
 R        |81    |X1 X2 Y1 Y2 Z1 Z2|Reporting end stops - parameters: X1 (end stop x axis min) X2 (end stop x axis max) Y1 Y2 Z1 Z2
-R        |82    |X Y Z     |Report current position
-R        |83    |C         |Report software version
-R        |99    |C         |Debug message
+R        |82    |X Y Z            |Report current position
+R        |83    |C                |Report software version
+R        |99    |C                |Debug message
 
 Axis states (R05)
 -----------------
@@ -212,7 +213,7 @@ Parameters|Description            |Unit of Measurement
 ----------|-----------------------|-------------------
 X         |X movement             |steps
 Y         |Y movement             |steps
-Z         |Z movement	         |steps
+Z         |Z movement	            |steps
 S         |Speed                  |steps/second
 Q         |Queue number           |#
 T         |Time                   |seconds
@@ -234,63 +235,63 @@ ZB        |End stop 2 on z axis   |0/1
 Arduino parameter numbers
 ------------------------
 
-Parameter name               |Parameter id
------------------------------|------------
-PARAM_CONFIG_OK              |2
-PARAM_USE_EEPROM             |3
-MOVEMENT_TIMEOUT_X           |11
-MOVEMENT_TIMEOUT_Y           |12
-MOVEMENT_TIMEOUT_Z           |13
-MOVEMENT_INVERT_ENDPOINTS_X  |21
-MOVEMENT_INVERT_ENDPOINTS_Y  |22
-MOVEMENT_INVERT_ENDPOINTS_Z  |23
-MOVEMENT_ENABLE_ENDPOINTS_X  |25
-MOVEMENT_ENABLE_ENDPOINTS_Y  |26
-MOVEMENT_ENABLE_ENDPOINTS_Z  |27
-MOVEMENT_INVERT_MOTOR_X      |31
-MOVEMENT_INVERT_MOTOR_Y      |32
-MOVEMENT_INVERT_MOTOR_Z      |33
-MOVEMENT_SECONDARY_MOTOR_X   |36
+Parameter name                    |Parameter id
+----------------------------------|------------
+PARAM_CONFIG_OK                   |2
+PARAM_USE_EEPROM                  |3
+MOVEMENT_TIMEOUT_X                |11
+MOVEMENT_TIMEOUT_Y                |12
+MOVEMENT_TIMEOUT_Z                |13
+MOVEMENT_INVERT_ENDPOINTS_X       |21
+MOVEMENT_INVERT_ENDPOINTS_Y       |22
+MOVEMENT_INVERT_ENDPOINTS_Z       |23
+MOVEMENT_ENABLE_ENDPOINTS_X       |25
+MOVEMENT_ENABLE_ENDPOINTS_Y       |26
+MOVEMENT_ENABLE_ENDPOINTS_Z       |27
+MOVEMENT_INVERT_MOTOR_X           |31
+MOVEMENT_INVERT_MOTOR_Y           |32
+MOVEMENT_INVERT_MOTOR_Z           |33
+MOVEMENT_SECONDARY_MOTOR_X        |36
 MOVEMENT_SECONDARY_MOTOR_INVERT_X |37
-MOVEMENT_STEPS_ACC_DEC_X     |41
-MOVEMENT_STEPS_ACC_DEC_Y     |42
-MOVEMENT_STEPS_ACC_DEC_Z     |43
-MOVEMENT_HOME_UP_X           |51
-MOVEMENT_HOME_UP_Y           |52
-MOVEMENT_HOME_UP_Z           |53
-MOVEMENT_MIN_SPD_X           |61
-MOVEMENT_MIN_SPD_Y           |62
-MOVEMENT_MIN_SPD_Z           |63
-MOVEMENT_MAX_SPD_X           |71
-MOVEMENT_MAX_SPD_Y           |72
-MOVEMENT_MAX_SPD_Z           |73
-ENCODER_ENABLED_X            |101
-ENCODER_ENABLED_Y            |102
-ENCODER_ENABLED_Z            |103
-ENCODER_MISSED_STEPS_MAX_X   |111
-ENCODER_MISSED_STEPS_MAX_Y   |112
-ENCODER_MISSED_STEPS_MAX_Z   |113
-ENCODER_MISSED_STEPS_DECAY_X |121
-ENCODER_MISSED_STEPS_DECAY_Y |122
-ENCODER_MISSED_STEPS_DECAY_Z |123
-MOVEMENT_AXIS_NR_STEPS_X     |141
-MOVEMENT_AXIS_NR_STEPS_Y     |142
-MOVEMENT_AXIS_NR_STEPS_Z     |143
-PIN_GUARD_1_PIN_NR           |201
-PIN_GUARD_1_TIME_OUT         |202
-PIN_GUARD_1_ACTIVE_STATE     |203
-PIN_GUARD_2_PIN_NR           |205
-PIN_GUARD_2_TIME_OUT         |206
-PIN_GUARD_2_ACTIVE_STATE     |207
-PIN_GUARD_3_PIN_NR           |211
-PIN_GUARD_3_TIME_OUT         |212
-PIN_GUARD_3_ACTIVE_STATE     |213
-PIN_GUARD_4_PIN_NR           |215
-PIN_GUARD_4_TIME_OUT         |216
-PIN_GUARD_4_ACTIVE_STATE     |217
-PIN_GUARD_5_PIN_NR           |221
-PIN_GUARD_5_TIME_OUT         |222
-PIN_GUARD_5_ACTIVE_STATE     |223
+MOVEMENT_STEPS_ACC_DEC_X          |41
+MOVEMENT_STEPS_ACC_DEC_Y          |42
+MOVEMENT_STEPS_ACC_DEC_Z          |43
+MOVEMENT_HOME_UP_X                |51
+MOVEMENT_HOME_UP_Y                |52
+MOVEMENT_HOME_UP_Z                |53
+MOVEMENT_MIN_SPD_X                |61
+MOVEMENT_MIN_SPD_Y                |62
+MOVEMENT_MIN_SPD_Z                |63
+MOVEMENT_MAX_SPD_X                |71
+MOVEMENT_MAX_SPD_Y                |72
+MOVEMENT_MAX_SPD_Z                |73
+ENCODER_ENABLED_X                 |101
+ENCODER_ENABLED_Y                 |102
+ENCODER_ENABLED_Z                 |103
+ENCODER_MISSED_STEPS_MAX_X        |111
+ENCODER_MISSED_STEPS_MAX_Y        |112
+ENCODER_MISSED_STEPS_MAX_Z        |113
+ENCODER_MISSED_STEPS_DECAY_X      |121
+ENCODER_MISSED_STEPS_DECAY_Y      |122
+ENCODER_MISSED_STEPS_DECAY_Z      |123
+MOVEMENT_AXIS_NR_STEPS_X          |141
+MOVEMENT_AXIS_NR_STEPS_Y          |142
+MOVEMENT_AXIS_NR_STEPS_Z          |143
+PIN_GUARD_1_PIN_NR                |201
+PIN_GUARD_1_TIME_OUT              |202
+PIN_GUARD_1_ACTIVE_STATE          |203
+PIN_GUARD_2_PIN_NR                |205
+PIN_GUARD_2_TIME_OUT              |206
+PIN_GUARD_2_ACTIVE_STATE          |207
+PIN_GUARD_3_PIN_NR                |211
+PIN_GUARD_3_TIME_OUT              |212
+PIN_GUARD_3_ACTIVE_STATE          |213
+PIN_GUARD_4_PIN_NR                |215
+PIN_GUARD_4_TIME_OUT              |216
+PIN_GUARD_4_ACTIVE_STATE          |217
+PIN_GUARD_5_PIN_NR                |221
+PIN_GUARD_5_TIME_OUT              |222
+PIN_GUARD_5_ACTIVE_STATE          |223
 
 IMPORTANT
 =========

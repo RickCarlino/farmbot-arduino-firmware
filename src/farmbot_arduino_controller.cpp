@@ -148,11 +148,6 @@ void loop()
     if (incomingChar == '\n' || incomingCommandPointer >= INCOMING_CMD_BUF_SIZE)
     {
 
-      //commandString += incomingChar;
-      //String commandString = Serial.readStringUntil(commandEndChar);
-      //char commandChar[currentCommand.length()];
-      //currentCommand.toCharArray(commandChar, currentCommand.length());
-
       char commandChar[incomingCommandPointer + 1];
       for (int i = 0; i < incomingCommandPointer - 1; i++)
       {
@@ -172,7 +167,6 @@ void loop()
         // string to the command object
 
         // Create a command and let it execute
-        //Command* command = new Command(commandString);
         Command *command = new Command(commandChar);
 
         if (LOGGING)
