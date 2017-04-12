@@ -158,7 +158,7 @@ F        |61    |P V       |Set the servo on the pin P (only pin 4 and 5) to the
 F        |81    |          |Report end stop
 F        |82    |          |Report current position
 F        |83    |          |Report software version
-F        |84    |X Y Z     |Write Axis Position
+F        |84    |X Y Z     |Write Axis Position. Eg: `F84 X1 Y0 Z0` zeros the X axis.
 E        |      |          |Emergency stop
 
 ### Codes received from the arduino
