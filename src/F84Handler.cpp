@@ -1,15 +1,14 @@
-
-
 /*
  * F84Handler.cpp
  *
- *  Created on: 2014/07/21
- *      Author: MattLech
+ *  Created on: 2017/04/13
+ *      Author: Rick Carlino
  */
 
 #include "F84Handler.h"
 
 static F84Handler *instance;
+const long DO_RESET = 1;
 
 F84Handler *F84Handler::getInstance()
 {
@@ -27,14 +26,17 @@ F84Handler::F84Handler()
 int F84Handler::execute(Command *command)
 {
 
-  if (LOGGING)
+  if (ParameterList::getInstance()->getValue(command->getX()) == DO_RESET)
   {
-    Serial.print("R99 Report server version\r\n");
+    // I ended up here via "F84 X0"
+    Serial.println("R84 Will zero X");
+    CurrentState::getInstance()->setX(0);
   }
-
-  Serial.print("R84 ");
-  Serial.println("IF YOU GOT THIS FAR, CAL SETx SETy OR SETz");
+  else
+  {
+    // I ended up here via "F84 X0"
+    Serial.println("R84 Will *NOT* zero X");
+  }
   CurrentState::getInstance()->printQAndNewLine();
-
   return 0;
 }
