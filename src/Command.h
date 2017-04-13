@@ -46,20 +46,20 @@ public:
   Command(char *commandChar);
   void print();
   CommandCodeEnum getCodeEnum();
+  double getS();
   double getX();
   double getY();
   double getZ();
-  double getS();
-  long getP();
-  long getV();
   long getA();
   long getB();
   long getC();
-  long getW();
-  long getT();
   long getE();
   long getM();
+  long getP();
   long getQ();
+  long getT();
+  long getV();
+  long getW();
 
   void printQAndNewLine();
 
