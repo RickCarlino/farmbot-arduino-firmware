@@ -147,6 +147,10 @@ CommandCodeEnum Command::getGCodeEnum(char *code)
   {
     return F83;
   }
+  if (strcmp(code, "F84") == 0)
+  {
+    return F84;
+  }
 
   return CODE_UNDEFINED;
 }

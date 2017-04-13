@@ -98,20 +98,13 @@ void setup()
 
   delay(100);
 
-  //ParameterList::getInstance()->setAllValuesToDefault();
-  //ParameterList::getInstance()->writeAllValuesToEeprom();
-  //ParameterList::getInstance()->readAllValuesFromEeprom();
-
-  // Start the motor handling
-  //ServoControl::getInstance()->attach();
-
   // Dump all values to the serial interface
   ParameterList::getInstance()->readAllValues();
 
   // Get the settings for the pin guard
   PinGuard::getInstance()->loadConfig();
 
-  // Start the interrupt used for moviing
+  // Start the interrupt used for moving
   // Interrupt management code library written by Paul Stoffregen
   // The default time 100 micro seconds
   Timer1.attachInterrupt(interrupt);
@@ -137,7 +130,8 @@ void loop()
     incomingCommandArray[incomingCommandPointer] = incomingChar;
     incomingCommandPointer++;
 
-    // If the string is getting to long, cap it off with a new line and let it process anyway
+    // If the string is getting to long, cap it off with a new line and let
+    // it process anyway
     if (incomingCommandPointer >= INCOMING_CMD_BUF_SIZE - 1)
     {
       incomingChar = '\n';

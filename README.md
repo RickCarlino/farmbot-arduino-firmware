@@ -166,6 +166,7 @@ E        |      |          |Emergency stop
 Code type|Number|Parameters|Function
 ---------|------|----------|--------
 R        |      |                 |Report messages
+R        |00    |                 |Idle / alive
 R        |01    |                 |Current command started
 R        |02    |                 |Current command finished successfully
 R        |03    |                 |Current command finished with error
