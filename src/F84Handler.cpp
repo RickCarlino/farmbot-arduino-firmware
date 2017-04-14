@@ -26,16 +26,24 @@ F84Handler::F84Handler()
 int F84Handler::execute(Command *command)
 {
 
-  // if (ParameterList::getInstance()->getValue(command->getX()) == DO_RESET)
   if (command->getX() == DO_RESET)
   {
     Serial.println("R84 Will zero X");
     CurrentState::getInstance()->setX(0);
   }
-  else
+
+  if (command->getY() == DO_RESET)
   {
-    Serial.println("R84 Will *NOT* zero X");
+    Serial.println("R84 Will zero Y");
+    CurrentState::getInstance()->setY(0);
   }
+
+  if (command->getZ() == DO_RESET)
+  {
+    Serial.println("R84 Will zero Z");
+    CurrentState::getInstance()->setZ(0);
+  }
+
   CurrentState::getInstance()->printQAndNewLine();
   return 0;
 }
